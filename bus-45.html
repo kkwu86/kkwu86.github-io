@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+
+<p id="demo"></p>
+
+<script>
+const dbParam = JSON.stringify({table:"customers",limit:20});
+const xmlhttp = new XMLHttpRequest();
+xmlhttp.onload = function() {
+ 
+  const myObj = JSON.parse(this.responseText);
+  let text = "<table border='1'>"
+  text += "<tr><td>Bus Stop 45</td><td>到站時間</td><td>到站分鐘</td><td></td></tr>";
+  for (let i = 0; i < myObj.data.length; i++) {
+    if (myObj.data[i].route == "45") {
+           
+           const targetDate = new Date(myObj.data[i].eta);
+       const targetTimestamp = targetDate.getTime();
+           const currentTimestamp = Date.now();
+
+                // 4. Calculate the difference
+           const timeDifferenceMs = targetTimestamp - currentTimestamp;          
+           const timeDifferenceSeconds = timeDifferenceMs / 1000;
+           const timeDifferenceMinutes = timeDifferenceMs / (1000 * 60);
+           const timeDifferenceHours = timeDifferenceMs / (1000 * 60 * 60);
+       text += "<tr><td>美孚轉車站 (C2) (SS463)</td><td>" + myObj.data[i].eta + "</td><td>" + Math.floor(timeDifferenceMinutes) + "</td><td>" + myObj.data[i].bound + "</td></tr>";
+    }
+  }
+  text += "</table>"    
+  document.getElementById("demo").innerHTML = text;
+
+
+
+
+}
+xmlhttp.open("GET", "https://data.etabus.gov.hk/v1/transport/kmb/eta/50E78EB09845863E/45/1");
+xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xmlhttp.send("x=" + dbParam);
+
+
+</script>
+
+</body>
+</htm>
