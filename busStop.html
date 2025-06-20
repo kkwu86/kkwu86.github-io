@@ -47,7 +47,7 @@ function display(el) {
              }
                      
                          for (let i = 0; i < busStop.length; i++) {                          
-                                // text += "<tr><td>busStop</td><td>" + busStop[i] + "</td><td>" + (i + 1) + "</td><td>I</td></tr>";                                                
+                                 text += "<tr><td>busStop</td><td>" + busStop[i] + "</td><td>" + (i + 1) + "</td><td>I</td></tr>";                                                
              }                        
              
              // document.getElementById("demo").innerHTML = text;
@@ -56,6 +56,7 @@ function display(el) {
         };
         xhr1.send(JSON.stringify({table:"bus",limit:5}));
 
+  /*
         let xhr2;
                 if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
                   xhr2=new XMLHttpRequest();
@@ -96,7 +97,7 @@ function display(el) {
         };
         //xhr2.send(JSON.stringify({ data: 'some_value' }));
                 xhr2.send(JSON.stringify({table:"bus",limit:20}));                
-                                       
+         */                              
 }
 
 function displayTime(url, e) {
