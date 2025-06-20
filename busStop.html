@@ -56,18 +56,19 @@ function display(el) {
         // xhr1.send("x=" + dbParam);
         xhr1.send();
 
-       let xhr2;
-                if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+       if (busStop.length > 0){
+            let xhr2;
+            if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
                   xhr2=new XMLHttpRequest();
             } else { // code for IE6, IE5
                   xhr2=new ActiveXObject("Microsoft.XMLHTTP");
             }
-        // Second XMLHttpRequest
-        //const xhr2 = new XMLHttpRequest();
-        xhr2.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/stop/');
-        xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhr2.onload = function() {
-            if (xhr2.readyState==4 && xhr2.status==200) {
+           // Second XMLHttpRequest
+           //const xhr2 = new XMLHttpRequest();
+           xhr2.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/stop/');
+           xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+           xhr2.onload = function() {
+                if (xhr2.readyState==4 && xhr2.status==200) {
                         // alert(xhr2.responseText);
                         const myObj2 = JSON.parse(xhr2.responseText);
                         // alert(myObj2.data.length);                        
@@ -80,7 +81,7 @@ function display(el) {
                                  busStopCode.push(myObj2.data[i].stop);
                                  busStopNameChi.push(myObj2.data[i].name_tc);
                            }                                                                                                                            
-             }            
+                          }            
                          
                          for (let j = 0; j < busStop.length; j++) {                                                
                            let target = busStopCode.findFirstSubstring(busStop[j]);
@@ -89,15 +90,15 @@ function display(el) {
                              url = "https://data.etabus.gov.hk/v1/transport/kmb/eta/" + busStop[j] + "/" + bus_id + "/1";
                                  text += "<tr><td>" + busStopNameChi[target] + "</td><td><a href=" + url + " onclick='return displayTime(this, event);'>" + url + "</a></td><td>" + busStopNameChi[target] + "</td><td>" + in_out + "</td></tr>";                                                
                                 }
-             }
+                         }
                          text += "</table>"                            
-             document.getElementById("demo").innerHTML = full_text + text;
+               document.getElementById("demo").innerHTML = full_text + text;
               console.log(full_text + text);
            }
         };
         const dbParam2 = JSON.stringify({table:"customers",limit:30});
         xhr2.send("x=" + dbParam2);            
-     
+       }
                                        
 }
 
