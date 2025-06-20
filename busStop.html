@@ -9,7 +9,7 @@ function display(el) {
     el.innerHTML = 'Show Bus Info';
         type="send";
   }
-  const xhr1;
+  let xhr1;
   if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
     xhr1=new XMLHttpRequest();
   } else { // code for IE6, IE5
@@ -55,7 +55,7 @@ function display(el) {
         const dbParam = JSON.stringify({table:"customers",limit:10});
         xhr1.send("x=" + dbParam);
 
-       const xhr2;
+       let xhr2;
                 if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
                   xhr2=new XMLHttpRequest();
             } else { // code for IE6, IE5
@@ -99,8 +99,7 @@ function display(el) {
 }
 
 function displayTime(url, e) {
-  //alert(url);
-  const xhr3;
+  let xhr3;
   if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
     xhr3=new XMLHttpRequest();
   } else { // code for IE6, IE5
