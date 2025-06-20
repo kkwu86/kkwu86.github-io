@@ -25,7 +25,8 @@ function display(el) {
   let url;
         // First XMLHttpRequest
         // const xhr1 = new XMLHttpRequest();
-        xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop', true);
+        xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop');
+        xhr1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr1.onload = function() {
             if (xhr1.readyState==4 && xhr1.status==200) {
                         // alert(xmlhttp.responseText);
@@ -50,7 +51,8 @@ function display(el) {
                          full_text = text;
            }
         };
-        xhr1.send();
+        const dbParam = JSON.stringify({table:"customers",limit:10});
+        xhr1.send("x=" + dbParam);
 
 
                 if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -60,8 +62,8 @@ function display(el) {
             }
         // Second XMLHttpRequest
         //const xhr2 = new XMLHttpRequest();
-        xhr2.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/stop/', true);
-        // xhr2.setRequestHeader('Content-Type', 'application/json');
+        xhr2.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/stop/');
+        xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr2.onload = function() {
             if (xhr2.readyState==4 && xhr2.status==200) {
                         // alert(xhr2.responseText);
@@ -90,8 +92,8 @@ function display(el) {
              document.getElementById("demo").innerHTML = full_text + text;
            }
         };
-        //xhr2.send(JSON.stringify({ data: 'some_value' }));
-                xhr2.send();                
+        const dbParam = JSON.stringify({table:"customers",limit:30});
+        xhr2.send("x=" + dbParam);            
                                        
 }
 
@@ -103,7 +105,8 @@ function displayTime(url, e) {
     xhr3=new ActiveXObject("Microsoft.XMLHTTP");
   }
  
-     xhr3.open('GET', url, true);
+     xhr3.open('GET', url);
+     xhr3.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr3.onload = function() {
                  
           if (xhr3.readyState==4 && xhr3.status==200) {
