@@ -26,8 +26,7 @@ function display(el) {
   let url;
         // First XMLHttpRequest
         // const xhr1 = new XMLHttpRequest();
-        xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop');
-        xhr1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
         xhr1.onload = function() {
             if (xhr1.readyState==4 && xhr1.status==200) {
                         // alert(xmlhttp.responseText);
@@ -52,7 +51,9 @@ function display(el) {
                          full_text = text;
            }
         };
-        const dbParam = JSON.stringify({table:"customers",limit:10});
+        xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop');
+        xhr1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          const dbParam = JSON.stringify({table:"customers",limit:10});
         // xhr1.send("x=" + dbParam);
         xhr1.send();
 
