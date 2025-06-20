@@ -50,8 +50,8 @@ function display(el) {
                                  text += "<tr><td>busStop</td><td>" + busStop[i] + "</td><td>" + (i + 1) + "</td><td>I</td></tr>";                                                
              }                        
              
-             // document.getElementById("demo").innerHTML = text;
                          full_text = text;
+              document.getElementById("demo").innerHTML = full_text + text;
            }
         };
         xhr1.send(JSON.stringify({table:"bus",limit:5}));
