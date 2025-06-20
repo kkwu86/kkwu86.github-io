@@ -29,6 +29,7 @@ function display(el) {
         // First XMLHttpRequest
         // const xhr1 = new XMLHttpRequest();
         xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop', true);
+        xhr1.setRequestHeader('Content-Type', 'application/json');
         xhr1.onload = function() {
             if (xhr1.readyState==4 && xhr1.status==200) {
                         // alert(xmlhttp.responseText);
@@ -53,7 +54,7 @@ function display(el) {
                          full_text = text;
            }
         };
-        xhr1.send(JSON.stringify({table:"bus",limit:20}));
+        xhr1.send(JSON.stringify({table:"bus",limit:5}));
 
         let xhr2;
                 if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -64,7 +65,7 @@ function display(el) {
         // Second XMLHttpRequest
         //const xhr2 = new XMLHttpRequest();
         xhr2.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/stop/', true);
-        // xhr2.setRequestHeader('Content-Type', 'application/json');
+        xhr2.setRequestHeader('Content-Type', 'application/json');
         xhr2.onload = function() {
             if (xhr2.readyState==4 && xhr2.status==200) {
                         // alert(xhr2.responseText);
@@ -94,7 +95,7 @@ function display(el) {
            }
         };
         //xhr2.send(JSON.stringify({ data: 'some_value' }));
-                xhr2.send();                
+                xhr2.send(JSON.stringify({table:"bus",limit:20}));                
                                        
 }
 
