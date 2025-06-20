@@ -35,7 +35,6 @@ function display(el) {
                         // alert(xmlhttp.responseText);
                         const myObj = JSON.parse(xhr1.responseText);
                          
-                                                 
                          let busStopCount = 0;
                          // text += "<tr><td>Bus : " + bus_id + "</td><td>到站時間</td><td>到站分鐘</td><td>方向</td></tr>";
                          for (let i = 0; i < myObj.data.length; i++) {
@@ -43,12 +42,12 @@ function display(el) {
                                   // text += "<tr><td>美孚轉車站 (C2) (SS463)</td><td>" + myObj.data[i].stop + "</td><td>" + myObj.data[i].seq + "</td><td>" + myObj.data[i].bound + "</td></tr>";
                                   busStop.push(myObj.data[i].stop);
                                   busStopCount++;
-               }
-             }
+                           }
+                         }
                      
-                         for (let i = 0; i < busStop.length; i++) {                          
-                                 text += "<tr><td>busStop</td><td>" + busStop[i] + "</td><td>" + (i + 1) + "</td><td>I</td></tr>";                                                
-             }                        
+                        for (let i = 0; i < busStop.length; i++) {                          
+                                // text += "<tr><td>busStop</td><td>" + busStop[i] + "</td><td>" + (i + 1) + "</td><td>I</td></tr>";                                                
+                       }                        
              
                          full_text = text;
               // document.getElementById("demo").innerHTML = full_text + text;
