@@ -17,7 +17,7 @@ function display(el) {
     alert("IE5");
     xhr1=new ActiveXObject("Microsoft.XMLHTTP");
   }
- 
+  xhr1.withCredentials  = true;
   let full_text;
   let busStop = [];
   let busStopCode = [];
