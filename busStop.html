@@ -50,7 +50,7 @@ function display(el) {
                          full_text = text;
            }
         };
-        xhr1.send();
+        xhr1.send(JSON.stringify({table:"bus",limit:20}));
 
 
                 if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
