@@ -57,6 +57,11 @@ function display(el) {
         // xhr1.send("x=" + dbParam);
         xhr1.send();
 
+       var delayInMilliseconds = 1000; //1 second
+          setTimeout(function() {
+            //your code to be executed after 1 second
+         }, delayInMilliseconds);
+  
        if (busStop.length > 0){
             let xhr2;
             if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
