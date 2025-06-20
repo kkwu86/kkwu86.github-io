@@ -48,21 +48,8 @@ function display(el) {
              }                        
              
              // document.getElementById("demo").innerHTML = text;
-                         full_text = text;
-           }
-        };
-        xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop');
-        xhr1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-          const dbParam = JSON.stringify({table:"customers",limit:10});
-        // xhr1.send("x=" + dbParam);
-        xhr1.send();
+                       full_text = text;
 
-       var delayInMilliseconds = 1000; //1 second
-          setTimeout(function() {
-            //your code to be executed after 1 second
-         }, delayInMilliseconds);
-  
-       if (busStop.length > 0){
             let xhr2;
             if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
                   xhr2=new XMLHttpRequest();
@@ -103,8 +90,23 @@ function display(el) {
            }
         };
         const dbParam2 = JSON.stringify({table:"customers",limit:30});
-        xhr2.send("x=" + dbParam2);            
-       }
+        xhr2.send("x=" + dbParam2);   
+
+              
+                
+           }
+        };
+        xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop');
+        xhr1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+          const dbParam = JSON.stringify({table:"customers",limit:10});
+        // xhr1.send("x=" + dbParam);
+        xhr1.send();
+
+       var delayInMilliseconds = 1000; //1 second
+          setTimeout(function() {
+            //your code to be executed after 1 second
+         }, delayInMilliseconds);         
+       
                                        
 }
 
