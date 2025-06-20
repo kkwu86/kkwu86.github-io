@@ -11,10 +11,10 @@ function display(el) {
   }
   const xhr1;
   if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
-    alert("IE7");
+    // alert("IE7");
     xhr1=new XMLHttpRequest();
   } else { // code for IE6, IE5
-    alert("IE5");
+    // alert("IE5");
     xhr1=new ActiveXObject("Microsoft.XMLHTTP");
   }
   
@@ -51,14 +51,14 @@ function display(el) {
              }                        
              
                          full_text = text;
-              document.getElementById("demo").innerHTML = full_text + text;
+              // document.getElementById("demo").innerHTML = full_text + text;
            }
         };
         const dbParam = JSON.stringify({table:"customers",limit:20});
         xhr1.send("x=" + dbParam);
 
-  /*
-        let xhr2;
+  
+        const xhr2;
                 if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
                   xhr2=new XMLHttpRequest();
             } else { // code for IE6, IE5
@@ -67,7 +67,7 @@ function display(el) {
         // Second XMLHttpRequest
         //const xhr2 = new XMLHttpRequest();
         xhr2.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/stop/', true);
-        xhr2.setRequestHeader('Content-Type', 'application/json');
+        xhr2.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr2.onload = function() {
             if (xhr2.readyState==4 && xhr2.status==200) {
                         // alert(xhr2.responseText);
@@ -96,21 +96,22 @@ function display(el) {
              document.getElementById("demo").innerHTML = full_text + text;
            }
         };
-        //xhr2.send(JSON.stringify({ data: 'some_value' }));
-                xhr2.send(JSON.stringify({table:"bus",limit:20}));                
-         */                              
+        const dbParam = JSON.stringify({table:"customers",limit:30});
+        xhr2.send("x=" + dbParam);              
+                                       
 }
 
 function displayTime(url, e) {
   //alert(url);
-  let xhr3;
+  const xhr3;
   if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
     xhr3=new XMLHttpRequest();
   } else { // code for IE6, IE5
     xhr3=new ActiveXObject("Microsoft.XMLHTTP");
   }
  
-     xhr3.open('GET', url, true);
+     xhr3.open('GET', url);
+     xhr3.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr3.onload = function() {
                  
           if (xhr3.readyState==4 && xhr3.status==200) {
