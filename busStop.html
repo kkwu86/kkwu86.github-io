@@ -1,0 +1,157 @@
+<head>
+<script type="text/javascript">
+function display(el) {
+  var type="";
+  if (el.innerHTML == 'Send to Cart') {
+    el.innerHTML = 'Show Bus Infot';
+        type="sent";
+  } else {
+    el.innerHTML = 'Show Bus Info';
+        type="send";
+  }
+  if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+    xhr1=new XMLHttpRequest();
+  } else { // code for IE6, IE5
+    xhr1=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+ 
+  let full_text;
+  let busStop = [];
+  let busStopCode = [];
+  let busStopNameChi = [];
+  let bus_id = document.getElementById("bus").value.toUpperCase();
+  let in_out = document.getElementById("myselect").value.toUpperCase();
+  let text = "<table border='1'>";
+  let url;
+        // First XMLHttpRequest
+        // const xhr1 = new XMLHttpRequest();
+        xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop', true);
+        xhr1.onload = function() {
+            if (xhr1.readyState==4 && xhr1.status==200) {
+                        // alert(xmlhttp.responseText);
+                        const myObj = JSON.parse(xhr1.responseText);
+                         
+                                                 
+                         let busStopCount = 0;
+                         // text += "<tr><td>Bus : " + bus_id + "</td><td>到站時間</td><td>到站分鐘</td><td>方向</td></tr>";
+                         for (let i = 0; i < myObj.data.length; i++) {
+                           if (myObj.data[i].route == bus_id && myObj.data[i].bound == in_out) {
+                                  // text += "<tr><td>美孚轉車站 (C2) (SS463)</td><td>" + myObj.data[i].stop + "</td><td>" + myObj.data[i].seq + "</td><td>" + myObj.data[i].bound + "</td></tr>";
+                                  busStop.push(myObj.data[i].stop);
+                                  busStopCount++;
+               }
+             }
+                     
+                         for (let i = 0; i < busStop.length; i++) {                          
+                                // text += "<tr><td>busStop</td><td>" + busStop[i] + "</td><td>" + (i + 1) + "</td><td>I</td></tr>";                                                
+             }                        
+             
+             // document.getElementById("demo").innerHTML = text;
+                         full_text = text;
+           }
+        };
+        xhr1.send();
+
+
+                if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+                  xhr2=new XMLHttpRequest();
+            } else { // code for IE6, IE5
+                  xhr2=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+        // Second XMLHttpRequest
+        //const xhr2 = new XMLHttpRequest();
+        xhr2.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/stop/', true);
+        // xhr2.setRequestHeader('Content-Type', 'application/json');
+        xhr2.onload = function() {
+            if (xhr2.readyState==4 && xhr2.status==200) {
+                        // alert(xhr2.responseText);
+                        const myObj2 = JSON.parse(xhr2.responseText);
+                        // alert(myObj2.data.length);                        
+                         //let text = "<table border='1'>"
+                         text = "<tr><td>Bus : " + bus_id + "</td><td>到站時間</td><td>到站分鐘</td><td>方向</td></tr>";
+                         // for (let i = 0; if (busStop.findFirstSubstring(myObj2.data[i].stop) > 0)  {
+                         for (let i = 0; i < myObj2.data.length; i++) {
+                           if (busStop.findFirstSubstring(myObj2.data[i].stop) >= 0)  {
+                             //- text += "<tr><td>美孚轉車站 (C2) (SS463)</td><td>" + myObj2.data[i].stop + ' || ' + myObj2.data[i].name_tc + "</td><td>" + myObj2.data[i].name_en + "</td><td>" + myObj2.data[i].name_sc + "</td></tr>";
+                                 busStopCode.push(myObj2.data[i].stop);
+                                 busStopNameChi.push(myObj2.data[i].name_tc);
+                           }                                                                                                                            
+             }            
+                         
+                         for (let j = 0; j < busStop.length; j++) {                                                
+                           let target = busStopCode.findFirstSubstring(busStop[j]);
+                           // alert("j:" + j + " code " + busStop[j] + " target : " + target);
+                           if (target >= 0)  {
+                             url = "https://data.etabus.gov.hk/v1/transport/kmb/eta/" + busStop[j] + "/" + bus_id + "/1";
+                                 text += "<tr><td>" + busStopNameChi[target] + "</td><td><a href=" + url + " onclick='return displayTime(this, event);'>" + url + "</a></td><td>" + busStopNameChi[target] + "</td><td>" + in_out + "</td></tr>";                                                
+                                }
+             }
+                         text += "</table>"                            
+             document.getElementById("demo").innerHTML = full_text + text;
+           }
+        };
+        //xhr2.send(JSON.stringify({ data: 'some_value' }));
+                xhr2.send();                
+                                       
+}
+
+function displayTime(url, e) {
+  //alert(url);
+  if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+    xhr3=new XMLHttpRequest();
+  } else { // code for IE6, IE5
+    xhr3=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+ 
+     xhr3.open('GET', url, true);
+        xhr3.onload = function() {
+                 
+          if (xhr3.readyState==4 && xhr3.status==200) {
+                        const myObj3 = JSON.parse(xhr3.responseText);
+                        let text = "Bus stop\n";
+                        text = "\t到站時間\t\t\t\t\t\t到站分鐘\n";
+                        for (let i = 0; i < myObj3.data.length; i++) {
+                                // if (myObj.data[i].route == bus_id) {          
+                                  const targetDate = new Date(myObj3.data[i].eta);
+                                  const targetTimestamp = targetDate.getTime();
+                                  const currentTimestamp = Date.now();
+
+                                  // 4. Calculate the difference
+                                  const timeDifferenceMs = targetTimestamp - currentTimestamp;          
+                                  const timeDifferenceSeconds = timeDifferenceMs / 1000;
+                                  const timeDifferenceMinutes = timeDifferenceMs / (1000 * 60);
+                                  const timeDifferenceHours = timeDifferenceMs / (1000 * 60 * 60);
+                                  text += "\t" + myObj3.data[i].eta + "\t\t" + Math.floor(timeDifferenceMinutes) + "\t\n";
+                                // }
+                        }
+                        // text += "</table>"
+                        alert(text);
+                 }                        
+                 
+        };
+       
+                xhr3.send();                        
+                return false;
+}
+
+Array.prototype.findFirstSubstring = function(s) {
+            for(var i = 0; i < this.length;i++)
+            {
+                if(this[i].indexOf(s) !== -1)
+                    return i;
+            }
+            return -1;
+        };
+
+</script>
+</head>
+<body>
+<input type="text" id="bus" name="bus">
+<select id="myselect">  
+  <option value="I">Inbound</option>  
+  <option value="O">Outbound</option>  
+</select>
+<button  name="jasmine" type="button" onclick="display(this)">Show Bus Info</button>
+<p id="demo"></p>
+</body>
+</html>
