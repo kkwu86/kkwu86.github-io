@@ -92,11 +92,12 @@ function display(el) {
              }
                          text += "</table>"                            
              document.getElementById("demo").innerHTML = full_text + text;
+              console.log(full_text + text);
            }
         };
         const dbParam2 = JSON.stringify({table:"customers",limit:30});
-        // xhr2.send("x=" + dbParam2);            
-        xhr2.send();
+        xhr2.send("x=" + dbParam2);            
+     
                                        
 }
 
