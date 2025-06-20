@@ -17,7 +17,7 @@ function display(el) {
     alert("IE5");
     xhr1=new ActiveXObject("Microsoft.XMLHTTP");
   }
-  xhr1.withCredentials  = true;
+  
   let full_text;
   let busStop = [];
   let busStopCode = [];
@@ -28,8 +28,8 @@ function display(el) {
   let url;
         // First XMLHttpRequest
         // const xhr1 = new XMLHttpRequest();
-        xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop', true);
-        xhr1.setRequestHeader('Content-Type', 'application/json');
+        xhr1.open('GET', 'https://data.etabus.gov.hk/v1/transport/kmb/route-stop');
+        xhr1.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
         xhr1.onload = function() {
             if (xhr1.readyState==4 && xhr1.status==200) {
                         // alert(xmlhttp.responseText);
@@ -54,7 +54,8 @@ function display(el) {
               document.getElementById("demo").innerHTML = full_text + text;
            }
         };
-        xhr1.send(JSON.stringify({table:"bus",limit:5}));
+        const dbParam = JSON.stringify({table:"customers",limit:20});
+        xhr1.send("x=" + dbParam);
 
   /*
         let xhr2;
