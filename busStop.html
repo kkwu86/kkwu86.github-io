@@ -53,7 +53,8 @@ function display(el) {
            }
         };
         const dbParam = JSON.stringify({table:"customers",limit:10});
-        xhr1.send("x=" + dbParam);
+        // xhr1.send("x=" + dbParam);
+        xhr1.send();
 
        let xhr2;
                 if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -94,7 +95,8 @@ function display(el) {
            }
         };
         const dbParam2 = JSON.stringify({table:"customers",limit:30});
-        xhr2.send("x=" + dbParam2);            
+        // xhr2.send("x=" + dbParam2);            
+        xhr1.send();
                                        
 }
 
