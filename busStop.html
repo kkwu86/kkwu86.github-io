@@ -3,7 +3,7 @@
 function display(el) {
   var type="";
   if (el.innerHTML == 'Send to Cart') {
-    el.innerHTML = 'Show Bus Infot';
+    el.innerHTML = 'Show Bus Info';
         type="sent";
   } else {
     el.innerHTML = 'Show Bus Info';
@@ -92,7 +92,7 @@ function display(el) {
              document.getElementById("demo").innerHTML = full_text + text;
            }
         };
-        const dbParam = JSON.stringify({table:"customers",limit:30});
+        dbParam = JSON.stringify({table:"customers",limit:30});
         xhr2.send("x=" + dbParam);            
                                        
 }
