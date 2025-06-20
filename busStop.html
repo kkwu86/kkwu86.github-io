@@ -11,8 +11,10 @@ function display(el) {
   }
   let xhr1;
   if (window.XMLHttpRequest) { // code for IE7+, Firefox, Chrome, Opera, Safari
+    alert("IE7");
     xhr1=new XMLHttpRequest();
   } else { // code for IE6, IE5
+    alert("IE5");
     xhr1=new ActiveXObject("Microsoft.XMLHTTP");
   }
  
